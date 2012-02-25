@@ -4,10 +4,13 @@ add_definitions(-Wall -O2 -g)
 include_directories(include)
 
 add_library(scribe SHARED src/context.c src/debug.c src/process.c)
+add_library(scribe-static STATIC src/context.c src/debug.c src/process.c)
+SET_TARGET_PROPERTIES(scribe-static PROPERTIES OUTPUT_NAME "scribe")
 
 add_executable(scribe_init src/init_process.c)
 
-install(TARGETS scribe scribe_init
+install(TARGETS scribe scribe-static scribe_init
+	ARCHIVE DESTINATION /usr/lib
 	LIBRARY DESTINATION /usr/lib
 	RUNTIME DESTINATION /usr/bin
 )
