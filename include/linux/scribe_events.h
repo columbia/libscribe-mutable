@@ -161,22 +161,26 @@ SCRIBE_EVENT(mem_owned_write,
 
 SCRIBE_EVENT(mem_owned_read_extra,
 	__field(__u32, id)
-	__field(__u32, address)
+	__field(__u32, vma_id)
+	__field(__u32, vma_offset)
 	__field(__u32, serial)
 )
 
 SCRIBE_EVENT(mem_owned_write_extra,
 	__field(__u32, id)
-	__field(__u32, address)
+	__field(__u32, vma_id)
+	__field(__u32, vma_offset)
 	__field(__u32, serial)
 )
 
 SCRIBE_EVENT(mem_public_read,
-	__field(__u32, address)
+	__field(__u32, vma_id)
+	__field(__u32, vma_offset)
 )
 
 SCRIBE_EVENT(mem_public_write,
-	__field(__u32, address)
+	__field(__u32, vma_id)
+	__field(__u32, vma_offset)
 )
 
 SCRIBE_EVENT(mem_alone)
@@ -303,6 +307,8 @@ SCRIBE_EVENT_DIVERGE(fence_serial,
 
 SCRIBE_EVENT_DIVERGE(mem_owned,
 	__field(__u32, address)
+	__field(__u32, vma_id)
+	__field(__u32, vma_offset)
 	__field(__u8, write_access)
 )
 

@@ -505,15 +505,19 @@ char *scribe_get_event_str(char *str, size_t size, struct scribe_event *event)
 	__TYPE(SCRIBE_EVENT_MEM_OWNED_WRITE,
 	       "mem owned, serial = %u", e->serial);
 	__TYPE(SCRIBE_EVENT_MEM_OWNED_READ_EXTRA,
-	       "mem owned read-only, id = %u, page = %08x, serial = %u",
-	       e->id, e->address, e->serial);
+	       "mem owned read-only, id = %u, "
+	       "vma_id = %u, vma_offset = %u, serial = %u",
+	       e->id, e->vma_id, e->vma_offset, e->serial);
 	__TYPE(SCRIBE_EVENT_MEM_OWNED_WRITE_EXTRA,
-	       "mem owned, id = %u, page = %08x, serial = %u",
-	       e->id, e->address, e->serial);
+	       "mem owned, id = %u, "
+	       "vma_id = %u, vma_offset = %u, serial = %u",
+	       e->id, e->vma_id, e->vma_offset, e->serial);
 	__TYPE(SCRIBE_EVENT_MEM_PUBLIC_READ,
-	       "mem public read-only, page = %08x", e->address);
+	       "mem public read-only, vma_id = %u, vma_offset = %u",
+	       e->vma_id, e->vma_offset);
 	__TYPE(SCRIBE_EVENT_MEM_PUBLIC_WRITE,
-	       "mem public, page = %08x", e->address);
+	       "mem public, vma_id = %u, vma_offset = %u",
+	       e->vma_id, e->vma_offset);
 	__TYPE(SCRIBE_EVENT_MEM_ALONE, "mem alone");
 	__TYPE(SCRIBE_EVENT_REGS, "regs: %s",
 	       get_regs_str(buffer1, sizeof(buffer1), &e->regs));
@@ -581,8 +585,10 @@ char *scribe_get_event_str(char *str, size_t size, struct scribe_event *event)
 	__TYPE(SCRIBE_EVENT_DIVERGE_FENCE_SERIAL,
 	       "fence serial = %u", e->serial);
 	__TYPE(SCRIBE_EVENT_DIVERGE_MEM_OWNED,
-	       "memory access, trying to %s page = %08x",
-	       e->write_access ? "write to" : "read", e->address);
+	       "memory access, trying to %s, page = %08x, "
+	       "vma_id = %u, offset = %u",
+	       e->write_access ? "write to" : "read",
+	       e->address, e->vma_id, e->vma_offset);
 	__TYPE(SCRIBE_EVENT_DIVERGE_MEM_NOT_OWNED,
 	       "memory address, page not owned");
 	__TYPE(SCRIBE_EVENT_DIVERGE_REGS, "regs: %s",
